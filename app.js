@@ -33,16 +33,29 @@ const forecast = require('./utils/forecast')
 //     }
     
 // })
+address = process.argv[2]
+// console.log(process.argv)
+
+if(!address){
+    console.log("Pleas enter a location")
+}else{
+    geocode(address, (error, { latitude, longitude, location}) => {
+        // console.log('Error ', error)
+        // console.log('Data ', data)
+        if(error){
+            return console.log(error)
+        }
+        // console.log(data)
+        //forecast according the the geocode output
+        forecast(latitude, longitude, (error, forecastData) =>{
+            if (error){
+                return console.log(error)
+            }
+            console.log(location)
+            console.log(forecastData)
+        })
+    })
+    
+}
 
 
-
-geocode('Gujarat', (error, data) => {
-    // console.log('Error ', error)
-    // console.log('Data ', data)
-    console.log(data)
-})
-
-forecast(-75.7088, 44.1545, (error, data) =>{
-    console.log('Error ', error)
-    console.log('Data ', data)
-})
